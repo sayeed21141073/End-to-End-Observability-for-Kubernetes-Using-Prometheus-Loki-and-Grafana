@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: node-exporter
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: node-exporter
+  template:
+    metadata:
+      labels:
+        app: node-exporter
+    spec:
+      containers:
+        - name: node-exporter
+          image: quay.io/prometheus/node-exporter:v1.5.0
+          args: ["--path.rootfs=/host"]
+          ports:
+            - name: metrics
+              containerPort: 9100
+          volumeMounts:
+            - name: host
+              mountPath: /host
+              readOnly: true
+      volumes:
+        - name: host
+          hostPath:
+            path: /
+

@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: mon-app-servicemonitor
+  namespace: monitoring
+  labels:
+    release: prom-stack
+spec:
+  selector:
+    matchLabels:
+      app: mon-app
+  namespaceSelector:
+    matchNames:
+      - monitoring-demo
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s
+

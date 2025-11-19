@@ -1,0 +1,21 @@
+alertmanager:
+  enabled: false
+
+prometheus:
+  prometheusSpec:
+    serviceMonitorSelector:
+      matchLabels:
+        release: prom-stack
+    podMonitorSelector: {}
+
+kubeStateMetrics:
+  enabled: true
+
+nodeExporter:
+  enabled: true
+
+grafana:
+  enabled: true
+  adminUser: admin
+  adminPassword: admin
+
